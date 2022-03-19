@@ -4,8 +4,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:metroControls="clr-namespace:Ruminoid.Common2.Metro.MetroControls;assembly=rmnd-metro"
+    xmlns:converters="clr-namespace:Ruminoid.Common2.Metro.Utils.Converters;assembly=rmnd-metro"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
     x:Class="Ruminoid.Toolbox.Shell.Views.QueueView">
+    <UserControl.Resources>
+        <converters:FloorValueConverter
+            x:Key="FloorValueConverter" />
+    </UserControl.Resources>
+
     <UserControl.Styles>
         <Style Selector="ProgressBar">
             <Setter Property="Height" Value="32" />
@@ -37,7 +43,7 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentProject.Progress, StringFormat={}{0:0}%}"
+                            Text="{Binding CurrentProject.Progress, Converter={StaticResource FloorValueConverter}, StringFormat={}{0:0}%}"
                             IsVisible="{Binding !CurrentProject.IsIndeterminate}" />
                     </Grid>
 
@@ -144,7 +150,7 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Text="{Binding Progress, StringFormat={}{0:0}%}"
+                                    Text="{Binding Progress, Converter={StaticResource FloorValueConverter}, StringFormat={}{0:0}%}"
                                     IsVisible="{Binding !IsIndeterminate}" />
                             </Grid>
                             <!--<StackPanel
